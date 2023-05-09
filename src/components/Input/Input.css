@@ -1,8 +1,8 @@
 input {
     width: 210px;
     height: 40px;
-    color: black;
-    background: white;
+    color: grey;
+    background: #161616;
     border-radius: 10px;
     font-weight: bold;
     font-size: 18px;

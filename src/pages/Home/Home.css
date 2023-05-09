@@ -1,0 +1,21 @@
+.home-toolbar {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 15px;
+    border-bottom: 2px solid teal;
+}
+
+.home-edit {
+    margin: 15px;
+}
+
+.home-logo {
+    padding-right: 10px;
+}
+
+.home-add-workout {
+    margin: 7px;
+    height: 30px;
+    width: 30px;
+}

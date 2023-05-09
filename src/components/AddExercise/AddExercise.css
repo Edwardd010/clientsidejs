@@ -1,0 +1,25 @@
+.add-exercise-container {
+    margin-top: 40px;
+    padding: 25px;
+    margin-inline: 20px;
+    border: 2px solid teal;
+    border-radius: 5%;
+}
+
+.add-header{
+    display: flex;
+    justify-content: space-around;
+}
+
+.add-exercise-exit {
+
+    height: 30px;
+    width: 30px;
+    margin-bottom: 20px;
+
+
+}
+
+h5 {
+    margin-top: 6px;
+}

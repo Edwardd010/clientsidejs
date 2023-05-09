@@ -1,0 +1,40 @@
+.add-workout-toolbar{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 15px;
+    border-bottom: 2px solid teal;
+}
+
+.add-workout-logo {
+    padding-left: 10px;
+}
+
+.add-workout-exit {
+    margin: 7px;
+    height: 30px;
+    width: 30px;
+}
+
+.form-container {
+
+    padding-inline: 10px;
+    padding-top: 20px;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+}
+
+.add-exercise {
+    outline: none;
+    background: #161616;
+    display: flex;
+    justify-content: start;
+    padding: 10px 10px 30px;
+    width: 100%;
+    margin-top: 40px;
+    font-size: 18px;
+    height: 40px;
+}
