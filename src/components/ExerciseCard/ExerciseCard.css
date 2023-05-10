@@ -1,0 +1,23 @@
+.ecard-container {
+
+    background: #161616;
+    width: 100%;
+    margin: 20px 0;
+    border: 2px solid #393D47;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.ecard-title {
+    padding-bottom: 5px;
+    border-bottom: 1px solid teal;
+}
+
+.ecard-object {
+    padding-top: 5px;
+}
+
+h2, h3 {
+    color: #6F7378;
+    background: #161616;
+}

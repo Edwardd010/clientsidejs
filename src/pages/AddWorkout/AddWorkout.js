@@ -6,6 +6,8 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import AddExercise from "../../components/AddExercise/AddExercise";
 import {AuthContext} from "../../context/AuthContext";
+import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
+import {ExerciseContext} from "../../context/ExerciseContext";
 function AddWorkout(){
 
     const currentDate = new Date();
@@ -19,6 +21,10 @@ function AddWorkout(){
     const [workoutDate, setWorkoutDate] = useState("");
 
     const {showOpenFunction, popStatus} = useContext(AuthContext);
+
+    const {
+        isExerciseAdded,
+    } = useContext(ExerciseContext);
 
     function handleNameChange(event) {
         setWorkoutName(event.target.value);
@@ -78,7 +84,7 @@ function AddWorkout(){
                             iChange={handleNotesChange}
                         />
                     </form>
-
+                    {isExerciseAdded && <ExerciseCard/>}
                     <button className="add-exercise" type="button" onClick={handleOpenAdd}>Add Exercise</button>
                 </div>
             </div>

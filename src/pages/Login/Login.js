@@ -16,6 +16,7 @@ function Login() {
     const {loginFunction, loginStatus} = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState(null);
     const navigate = useNavigate();
     async function handleLogin(event) {
         event.preventDefault();
@@ -28,7 +29,11 @@ function Login() {
             });
             setValidateStatus(response.status);
         } catch (error) {
-            setValidateStatus("Invalid username or password");
+            if (error.response && error.response.status === 404) {
+                setLoginError('User not found');
+            } else {
+                setLoginError('Invalid username or password');
+            }
         }
 
     }
@@ -37,6 +42,7 @@ function Login() {
             loginFunction();
         }
     }, [validateStatus, loginFunction, navigate]);
+
 
     useEffect(() => {
         if (loginStatus) {
@@ -54,6 +60,7 @@ function Login() {
                     <Input iType={"text"} iValue={username} iChange={(e) => setUsername(e.target.value)}/>
                     <h3 className="login-d">password:</h3>
                     <Input iType={"password"} iValue={password} iChange={(e) => setPassword(e.target.value)}/>
+                    {loginError && <p>{loginError}</p>}
                     <h3 className="f-login">Forgot password?</h3>
                 </div>
                 <div className="login-button">

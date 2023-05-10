@@ -2,18 +2,27 @@ import React, {useContext, useState} from "react";
 import './AddExercise.css'
 import Input from "../Input/Input";
 import exit from "../../assets/exit.png";
-import AddWorkout from "../../pages/AddWorkout/AddWorkout";
 import {AuthContext} from "../../context/AuthContext";
+import {ExerciseContext} from "../../context/ExerciseContext";
 
 
 function AddExercise(){
 
-    const [exerciseName, setExerciseName] = useState("");
-    const [sets, setSets] = useState("");
-    const [reps, setReps] = useState("");
-    const [weight, setWeight] = useState("");
+    const {showCloseFunction, popStatus } = useContext(AuthContext);
 
-    const {showCloseFunction, popStatus} = useContext(AuthContext);
+
+
+    const {
+        exerciseName,
+        setExerciseName,
+        sets,
+        setSets,
+        reps,
+        setReps,
+        weight,
+        setWeight,
+        setIsExerciseAdded,
+    } = useContext(ExerciseContext);
 
     function handleExerciseNameChange(event) {
         setExerciseName(event.target.value);
@@ -31,6 +40,12 @@ function AddExercise(){
         showCloseFunction();
     }
 
+    function handleAddExercise(event) {
+        event.preventDefault();
+        setIsExerciseAdded(true);
+        showCloseFunction();
+    }
+
 
     return (
         <>
@@ -38,7 +53,9 @@ function AddExercise(){
                 <div className="add-header">
                     <img className="add-exercise-exit" src={exit} alt="exit" onClick={handleCloseAddExercise}/>
                     <h2>Add Exercise</h2>
-                    <h4>Add</h4>
+                    <a onClick={handleAddExercise}>
+                        <h4>Add</h4>
+                    </a>
                 </div>
                 <form>
                     <label>
