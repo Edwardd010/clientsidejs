@@ -1,12 +1,13 @@
 import React from "react";
 import './Input.css';
 
-function Input({iType, iValue, iKeyPress, iChange, iPlaceholder, iClassName}){
+function Input({iType, iValue, iKeyPress, iChange, iPlaceholder, iClassName, iName}){
 
     return (
         <>
             <input
                 className={iClassName}
+                name={iName}
                 type={iType}
                 value={iValue}
                 onKeyDown={iKeyPress}

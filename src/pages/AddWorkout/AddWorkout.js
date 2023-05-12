@@ -3,11 +3,10 @@ import './AddWorkout.css'
 import exit from '../../assets/exit.png'
 import {Link} from "react-router-dom";
 import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
 import AddExercise from "../../components/AddExercise/AddExercise";
 import {AuthContext} from "../../context/AuthContext";
-import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
-import {ExerciseContext} from "../../context/ExerciseContext";
+import ExerciseList from "../../components/ExerciseList/ExerciseList";
+
 function AddWorkout(){
 
     const currentDate = new Date();
@@ -22,9 +21,9 @@ function AddWorkout(){
 
     const {showOpenFunction, popStatus} = useContext(AuthContext);
 
-    const {
-        isExerciseAdded,
-    } = useContext(ExerciseContext);
+    // const {
+    //     isExerciseAdded,
+    // } = useContext();
 
     function handleNameChange(event) {
         setWorkoutName(event.target.value);
@@ -84,7 +83,7 @@ function AddWorkout(){
                             iChange={handleNotesChange}
                         />
                     </form>
-                    {isExerciseAdded && <ExerciseCard/>}
+                    <ExerciseList/>
                     <button className="add-exercise" type="button" onClick={handleOpenAdd}>Add Exercise</button>
                 </div>
             </div>

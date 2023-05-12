@@ -3,76 +3,73 @@ import './AddExercise.css'
 import Input from "../Input/Input";
 import exit from "../../assets/exit.png";
 import {AuthContext} from "../../context/AuthContext";
-import {ExerciseContext} from "../../context/ExerciseContext";
+import exerciseService from "../../services/exerciseService";
+
 
 
 function AddExercise(){
 
     const {showCloseFunction, popStatus } = useContext(AuthContext);
 
+    const [exercise, setExercise] = useState({
+        exerciseName: '',
+        sets: 0,
+        reps: 0,
+        weight: 0
+    });
 
-
-    const {
-        exerciseName,
-        setExerciseName,
-        sets,
-        setSets,
-        reps,
-        setReps,
-        weight,
-        setWeight,
-        setIsExerciseAdded,
-    } = useContext(ExerciseContext);
-
-    function handleExerciseNameChange(event) {
-        setExerciseName(event.target.value);
-    }
-    function handleSetsChange(event) {
-        setSets(event.target.value);
-    }
-    function handleRepsChange(event) {
-        setReps(event.target.value);
-    }
-    function handleWeightChange(event) {
-        setWeight(event.target.value);
-    }
-    function handleCloseAddExercise(event){
-        showCloseFunction();
-    }
-
-    function handleAddExercise(event) {
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setExercise(prevExercise => ({
+            ...prevExercise,
+            [name]: value
+        }));
+    };
+    const handleSubmit = (event) => {
         event.preventDefault();
-        setIsExerciseAdded(true);
+        exerciseService.createExercise(exercise)
+            .then(data => {
+                console.log('Exercise created successfully:', data);
+                showCloseFunction();
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error creating exercise:', error);
+            });
+    };
+
+    function handleExit(event){
         showCloseFunction();
     }
+
 
 
     return (
         <>
             <div className="add-exercise-container">
                 <div className="add-header">
-                    <img className="add-exercise-exit" src={exit} alt="exit" onClick={handleCloseAddExercise}/>
+                    <img className="add-exercise-exit" src={exit} alt="exit" onClick={handleExit}/>
                     <h2>Add Exercise</h2>
-                    <a onClick={handleAddExercise}>
+                    <a onClick={handleSubmit}>
                         <h4>Add</h4>
                     </a>
                 </div>
                 <form>
                     <label>
                         Exercise Name:
-                        <Input iType="text" iValue={exerciseName} iChange={handleExerciseNameChange}/>
+                        <input type="text" name="exerciseName" value={exercise.exerciseName} onChange={handleInputChange} />
                     </label>
                     <label>
                         Sets:
-                        <Input iType="text" iValue={sets} iChange={handleSetsChange}/>
+                        <Input iType="number" iName="sets" iValue={exercise.sets} iChange={handleInputChange}/>
                     </label>
                     <label>
                         Reps:
-                        <Input iType="text" iValue={reps} iChange={handleRepsChange}/>
+                        <Input iType="number" iName="reps" iValue={exercise.reps} iChange={handleInputChange}/>
                     </label>
                     <label>
                         Weight:
-                        <Input iType="text" iValue={weight} iChange={handleWeightChange}/>
+                        <Input iType="number" iName="weight" iValue={exercise.weight} iChange={handleInputChange}/>
                     </label>
                 </form>
             </div>

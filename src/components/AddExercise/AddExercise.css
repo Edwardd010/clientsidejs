@@ -1,4 +1,6 @@
 .add-exercise-container {
+    position: fixed;
+    bottom: 10px;
     margin-top: 40px;
     padding: 25px;
     margin-inline: 20px;
@@ -12,12 +14,9 @@
 }
 
 .add-exercise-exit {
-
     height: 30px;
     width: 30px;
     margin-bottom: 20px;
-
-
 }
 
 h5 {

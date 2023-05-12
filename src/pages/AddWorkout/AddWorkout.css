@@ -1,3 +1,8 @@
+.add-workout-container {
+    height: 736px;
+    overflow-y: scroll;
+}
+
 .add-workout-toolbar{
     display: flex;
     justify-content: space-between;
@@ -35,6 +40,7 @@ input {
     padding: 10px 10px 30px;
     width: 100%;
     margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 18px;
     height: 40px;
 }
