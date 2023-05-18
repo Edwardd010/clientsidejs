@@ -20,9 +20,7 @@ function Login() {
     const navigate = useNavigate();
     async function handleLogin(event) {
         event.preventDefault();
-
         try {
-
             const response = await axios.post('http://localhost:1234/login', {
                 username,
                 password
@@ -31,8 +29,10 @@ function Login() {
         } catch (error) {
             if (error.response && error.response.status === 404) {
                 setLoginError('User not found');
+                console.log(error.response);
             } else {
                 setLoginError('Invalid username or password');
+                console.log(error.response);
             }
         }
 
@@ -60,9 +60,9 @@ function Login() {
                     <Input iType={"text"} iValue={username} iChange={(e) => setUsername(e.target.value)}/>
                     <h3 className="login-d">password:</h3>
                     <Input iType={"password"} iValue={password} iChange={(e) => setPassword(e.target.value)}/>
-                    {loginError && <p>{loginError}</p>}
                     <h3 className="f-login">Forgot password?</h3>
                 </div>
+                {loginError && <h3 className="login-error">{loginError}</h3>}
                 <div className="login-button">
                     <Button
                         bType={"submit"}

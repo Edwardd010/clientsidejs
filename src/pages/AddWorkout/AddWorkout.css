@@ -44,3 +44,7 @@ input {
     font-size: 18px;
     height: 40px;
 }
+
+.workout-date, .workout-name, .bodyweight, .workout-notes{
+    color: teal;
+}

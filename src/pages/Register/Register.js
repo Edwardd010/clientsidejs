@@ -12,6 +12,9 @@ function Register(){
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState(true);
+    const [userCreated, setUserCreated] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [createError, setCreateError] = useState(null);
 
     function validatePassword() {
         if (password === repeatPassword) {
@@ -40,15 +43,17 @@ function Register(){
                     password: password
                 });
                 console.log('User created: ', response.data);
+                setUserCreated(true);
+                setUsernameError(false);
             } catch (error) {
-                console.error('Error creating new user: ', error);
+                console.error('Error creating new user: ', error.response);
+                setCreateError(error.response.data);
+                setUsernameError(true);
             }
         } else {
             setRepeatPassword("");
         }
-
     }
-
 
     return(
         <>
@@ -62,10 +67,16 @@ function Register(){
                     <Input iType={"password"} iValue={password} iChange={(e) => setPassword(e.target.value)}/>
                     <h3 className="register-d">repeat password:</h3>
                     <Input iType={"password"} iValue={repeatPassword} iChange={(e) => setRepeatPassword(e.target.value)}/>
-                    {!passwordsMatch && (
-                        <h3>Passwords don't match</h3>
-                    )}
                 </div>
+                {!passwordsMatch && (
+                    <h3 className="register-msg">Passwords don't match</h3>
+                )}
+                {userCreated && (
+                    <h3 className="register-msg">User {username} created successfully!</h3>
+                )}
+                {usernameError && (
+                    <h3 className="register-msg">{createError}!</h3>
+                )}
                 <div className="register-button">
                     <Button
                         bType={"submit"}

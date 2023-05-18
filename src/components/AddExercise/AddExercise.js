@@ -3,19 +3,18 @@ import './AddExercise.css'
 import Input from "../Input/Input";
 import exit from "../../assets/exit.png";
 import {AuthContext} from "../../context/AuthContext";
-import exerciseService from "../../services/exerciseService";
 
 
 
-function AddExercise(){
+function AddExercise({addExercise}){
 
-    const {showCloseFunction, popStatus } = useContext(AuthContext);
+    const { showCloseFunction, showAdd } = useContext(AuthContext);
 
     const [exercise, setExercise] = useState({
         exerciseName: '',
-        sets: 0,
-        reps: 0,
-        weight: 0
+        sets: '',
+        reps: '',
+        weight: ''
     });
 
     const handleInputChange = (event) => {
@@ -25,55 +24,54 @@ function AddExercise(){
             [name]: value
         }));
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        exerciseService.createExercise(exercise)
-            .then(data => {
-                console.log('Exercise created successfully:', data);
-                showCloseFunction();
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error('Error creating exercise:', error);
-            });
+        console.log("Submitted correctly");
+        addExercise(exercise);
+        setExercise({
+            exerciseName: '',
+            sets: '',
+            reps: '',
+            weight: ''
+        });
+        showCloseFunction();
     };
 
-    function handleExit(event){
+    const handleExit = (event) => {
         showCloseFunction();
-    }
-
+    };
 
 
     return (
         <>
-            <div className="add-exercise-container">
-                <div className="add-header">
-                    <img className="add-exercise-exit" src={exit} alt="exit" onClick={handleExit}/>
-                    <h2>Add Exercise</h2>
-                    <a onClick={handleSubmit}>
-                        <h4>Add</h4>
-                    </a>
+            {showAdd &&
+                <div className="add-exercise-container">
+                    <div className="add-header">
+                        <img className="add-exercise-exit" src={exit} alt="exit" onClick={handleExit}/>
+                        <h2>Add Exercise</h2>
+                        <h4 onClick={handleSubmit}>Add</h4>
+                    </div>
+                    <form>
+                        <label>
+                            Exercise Name:
+                            <Input iType="text" iName="exerciseName" iValue={exercise.exerciseName} iChange={handleInputChange}/>
+                        </label>
+                        <label>
+                            Sets:
+                            <Input iType="number" iName="sets" iValue={exercise.sets} iChange={handleInputChange}/>
+                        </label>
+                        <label>
+                            Reps:
+                            <Input iType="number" iName="reps" iValue={exercise.reps} iChange={handleInputChange}/>
+                        </label>
+                        <label>
+                            Weight:
+                            <Input iType="number" iName="weight" iValue={exercise.weight} iChange={handleInputChange}/>
+                        </label>
+                    </form>
                 </div>
-                <form>
-                    <label>
-                        Exercise Name:
-                        <input type="text" name="exerciseName" value={exercise.exerciseName} onChange={handleInputChange} />
-                    </label>
-                    <label>
-                        Sets:
-                        <Input iType="number" iName="sets" iValue={exercise.sets} iChange={handleInputChange}/>
-                    </label>
-                    <label>
-                        Reps:
-                        <Input iType="number" iName="reps" iValue={exercise.reps} iChange={handleInputChange}/>
-                    </label>
-                    <label>
-                        Weight:
-                        <Input iType="number" iName="weight" iValue={exercise.weight} iChange={handleInputChange}/>
-                    </label>
-                </form>
-            </div>
-            {!popStatus && null}
+            }
         </>
     )
 }

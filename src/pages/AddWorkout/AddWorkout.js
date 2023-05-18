@@ -1,46 +1,67 @@
 import React, {useContext, useState} from "react";
 import './AddWorkout.css'
 import exit from '../../assets/exit.png'
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import Input from "../../components/Input/Input";
 import AddExercise from "../../components/AddExercise/AddExercise";
 import {AuthContext} from "../../context/AuthContext";
 import ExerciseList from "../../components/ExerciseList/ExerciseList";
+import workoutService from "../../services/workoutService";
 
-function AddWorkout(){
-
+function AddWorkout() {
     const currentDate = new Date();
-
+    const { showOpenFunction } = useContext(AuthContext);
     const options = { day: "numeric", month: "short" };
     const formattedDate = currentDate.toLocaleString("en-US", options);
 
-    const [workoutName, setWorkoutName] = useState("");
-    const [workoutNotes, setWorkoutNotes] = useState("");
-    const [bodyweight, setBodyweight] = useState("");
-    const [workoutDate, setWorkoutDate] = useState("");
+    const [isAddExerciseOpen, setIsAddExerciseOpen] = useState(false);
+    const Navigate = useNavigate();
 
-    const {showOpenFunction, popStatus} = useContext(AuthContext);
+    const [workout, setWorkout] = useState({
+        workoutName: '',
+        workoutDate: formattedDate,
+        exercises: []
+    });
 
-    // const {
-    //     isExerciseAdded,
-    // } = useContext();
+    const [exerciseList, setExerciseList] = useState([]);
 
-    function handleNameChange(event) {
-        setWorkoutName(event.target.value);
-    }
-    function handleNotesChange(event) {
-        setWorkoutNotes(event.target.value);
-    }
-    function handleBWChange(event) {
-        setBodyweight(event.target.value);
-    }
-    function handleDateChange(event) {
-        setWorkoutDate(event.target.value);
-    }
+    const addExercise = (exercise) => {
+        setExerciseList((prevList) => [...prevList, exercise]);
+    };
 
-    function handleOpenAdd(event){
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setWorkout(prevWorkout => ({
+            ...prevWorkout,
+            [name]: value
+        }));
+    };
+
+    const handleOpenAdd = (event) => {
         showOpenFunction();
-    }
+        setIsAddExerciseOpen(true);
+    };
+
+    const handleConfirm = (event) => {
+        event.preventDefault();
+
+        workoutService.createWorkout(workout)
+            .then(data => {
+                console.log('Workout created successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error creating workout:', error);
+            });
+
+        setWorkout({
+            workoutName: '',
+            workoutDate: formattedDate,
+            exercises: []
+        });
+
+        setIsAddExerciseOpen(false);
+        Navigate("/home");
+    };
 
     return (
         <>
@@ -50,7 +71,9 @@ function AddWorkout(){
                         <img className="add-workout-exit" src={exit} alt="exit"/>
                     </Link>
                     <h1 className="add-workout-logo">{formattedDate}</h1>
-                    <h4>Confirm</h4>
+                    <Link to="/home">
+                        <h4 className="new-card" onClick={handleConfirm}>Confirm</h4>
+                    </Link>
                 </div>
                 <div className="form-container">
                     <form className="workout-form">
@@ -58,36 +81,38 @@ function AddWorkout(){
                             iClassName="workout-name"
                             iType="text"
                             iPlaceholder="Name"
-                            iValue={workoutName}
-                            iChange={handleNameChange}
+                            iName="workoutName"
+                            iValue={workout.workoutName}
+                            iChange={handleInputChange}
                         />
                         <Input
-                            iClassName="workout-name"
+                            iClassName="workout-date"
                             iType="text"
                             iPlaceholder="Date"
-                            iValue={workoutDate}
-                            iChange={handleDateChange}
+                            iName="workoutDate"
+                            iValue={workout.workoutDate}
+                            iChange={handleInputChange}
                         />
                         <Input
                             iClassName="bodyweight"
                             iType="text"
                             iPlaceholder="Bodyweight"
-                            iValue={bodyweight}
-                            iChange={handleBWChange}
+                            // iValue={bodyweight}
+                            iChange={handleInputChange}
                         />
                         <Input
                             iClassName="workout-notes"
                             iType="text"
                             iPlaceholder="Notes"
-                            iValue={workoutNotes}
-                            iChange={handleNotesChange}
+                            // iValue={workoutNotes}
+                            iChange={handleInputChange}
                         />
                     </form>
-                    <ExerciseList/>
+                    <ExerciseList exercises={exerciseList}/>
                     <button className="add-exercise" type="button" onClick={handleOpenAdd}>Add Exercise</button>
                 </div>
             </div>
-            {popStatus && <AddExercise/>}
+            {isAddExerciseOpen && <AddExercise addExercise={addExercise}/>}
         </>
     )
 }

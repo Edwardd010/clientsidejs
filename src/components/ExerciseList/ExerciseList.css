@@ -1,5 +1,4 @@
 .ecard-container {
-
     background: #161616;
     width: 100%;
     margin: 20px 0;
@@ -8,10 +7,21 @@
     padding: 10px;
 }
 
-.ecard-title {
+img {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.ecard-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding-bottom: 5px;
     border-bottom: 1px solid teal;
 }
+
+
 
 .ecard-object {
     padding-top: 5px;

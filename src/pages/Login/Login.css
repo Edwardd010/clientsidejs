@@ -15,7 +15,8 @@
     padding: 10px;
 }
 
-.login-d{
+.login-d {
+    color: teal;
     padding-top: 30px
 }
 
@@ -27,9 +28,14 @@
 }
 
 .login-register {
+    color: teal;
     border-bottom: 1px solid teal;
     margin-top: 10px;
     text-decoration: none;
+}
+
+.login-error {
+    color: teal;
 }
 
 .login-logo {

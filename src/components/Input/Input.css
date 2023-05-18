@@ -8,3 +8,7 @@ input {
     font-size: 18px;
     padding: 10px;
 }
+
+input[type="text"]:focus {
+    background-color: #161616;
+}
