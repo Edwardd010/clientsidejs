@@ -7,6 +7,7 @@ import AddExercise from "../../components/AddExercise/AddExercise";
 import {AuthContext} from "../../context/AuthContext";
 import ExerciseList from "../../components/ExerciseList/ExerciseList";
 import workoutService from "../../services/workoutService";
+import exerciseService from "../../services/exerciseService";
 
 function AddWorkout() {
     const currentDate = new Date();
@@ -17,16 +18,17 @@ function AddWorkout() {
     const [isAddExerciseOpen, setIsAddExerciseOpen] = useState(false);
     const Navigate = useNavigate();
 
+    const [exerciseList, setExerciseList] = useState([]);
+
+
     const [workout, setWorkout] = useState({
         workoutName: '',
         workoutDate: formattedDate,
         exercises: []
     });
 
-    const [exerciseList, setExerciseList] = useState([]);
-
     const addExercise = (exercise) => {
-        setExerciseList((prevList) => [...prevList, exercise]);
+        setExerciseList(prevList => [...prevList, exercise]);
     };
 
     const handleInputChange = (event) => {
@@ -45,13 +47,28 @@ function AddWorkout() {
     const handleConfirm = (event) => {
         event.preventDefault();
 
-        workoutService.createWorkout(workout)
+        const updatedWorkout = {
+            workoutName: workout.workoutName,
+            workoutDate: formattedDate,
+            exercises: exerciseList
+        }
+
+        workoutService.createWorkout(updatedWorkout)
             .then(data => {
                 console.log('Workout created successfully:', data);
             })
             .catch(error => {
                 console.error('Error creating workout:', error);
             });
+
+        exerciseService.createExercises(updatedWorkout.exercises)
+            .then(data => {
+                console.log('Exercises created successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error creating exercises:', error);
+            });
+
 
         setWorkout({
             workoutName: '',

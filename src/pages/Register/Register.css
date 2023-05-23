@@ -40,8 +40,9 @@
 .register-msg {
     display: flex;
     justify-content: center;
-    padding-left: 15%;
-    padding-right: 10%;
+    position: relative;
+    padding-left: 20%;
+    padding-right: 20%;
     padding-top: 15px;
     color: teal;
 }

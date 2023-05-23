@@ -21,6 +21,10 @@
     width: 40px;
 }
 
+img {
+    object-fit: contain;
+}
+
 h4 {
     margin-top: 10px;
 }

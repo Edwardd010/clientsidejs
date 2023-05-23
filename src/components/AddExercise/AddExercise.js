@@ -12,9 +12,9 @@ function AddExercise({addExercise}){
 
     const [exercise, setExercise] = useState({
         exerciseName: '',
-        sets: '',
-        reps: '',
-        weight: ''
+        sets: 0,
+        reps: 0,
+        weight: 0
     });
 
     const handleInputChange = (event) => {
@@ -27,13 +27,13 @@ function AddExercise({addExercise}){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Submitted correctly");
+        console.log("Submitted correctly" + JSON.stringify(exercise));
         addExercise(exercise);
         setExercise({
             exerciseName: '',
-            sets: '',
-            reps: '',
-            weight: ''
+            sets: 0,
+            reps: 0,
+            weight: 0
         });
         showCloseFunction();
     };

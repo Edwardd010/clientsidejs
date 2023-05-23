@@ -4,11 +4,18 @@
     flex-direction: row;
     padding: 15px;
     border-bottom: 2px solid teal;
+    overflow: hidden;
 }
 
 .home-edit {
     margin: 15px;
 }
+
+main {
+    height: 570px;
+    overflow: scroll;
+}
+
 
 .home-logo {
     padding-right: 10px;

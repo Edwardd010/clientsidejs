@@ -16,7 +16,9 @@ function Home(){
                     <img className="home-add-workout" src={homebutton} alt="Add button"/>
                 </Link>
             </div>
-            <WorkoutCards/>
+            <main>
+                <WorkoutCards/>
+            </main>
             <Footer/>
         </>
     )

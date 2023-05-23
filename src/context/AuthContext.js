@@ -8,6 +8,7 @@ function AuthContextProvider({ children }){
     const [authState, setAuthState] = useState(false);
     const [showAdd, setShowAdd] = useState(false);
 
+
     function trueState(){
         setAuthState(true);
     }
@@ -23,8 +24,9 @@ function AuthContextProvider({ children }){
         setShowAdd(false);
     }
 
+
     const authData = {
-        
+
         loginStatus: authState,
         loginFunction: trueState,
         logoutFunction: falseState,

@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import './Register.css'
 import Input from "../../components/Input/Input";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import d from "../../assets/d.png";
 import Button from "../../components/Button/Button";
+import {AuthContext} from "../../context/AuthContext";
 
 function Register(){
 
@@ -15,6 +16,7 @@ function Register(){
     const [userCreated, setUserCreated] = useState(false);
     const [usernameError, setUsernameError] = useState(false);
     const [createError, setCreateError] = useState(null);
+
 
     function validatePassword() {
         if (password === repeatPassword) {
@@ -36,6 +38,7 @@ function Register(){
 
     const handleRegister = async (e) => {
         e.preventDefault()
+
         if(validatePassword()){
             try{
                 const response = await axios.post('http://localhost:1234/users', {
@@ -45,6 +48,7 @@ function Register(){
                 console.log('User created: ', response.data);
                 setUserCreated(true);
                 setUsernameError(false);
+
             } catch (error) {
                 console.error('Error creating new user: ', error.response);
                 setCreateError(error.response.data);

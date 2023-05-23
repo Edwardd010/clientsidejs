@@ -1,13 +1,14 @@
 import axios from "axios";
 
 const exerciseService = {
-    createExercise: (exercise) => {
+    createExercises: (exercise) => {
 
         return axios.post('http://localhost:1234/exercises', exercise)
             .then(response => {
                 return response.data;
             })
             .catch(error => {
+                console.log("Service error" + error);
                 throw error;
             });
     },

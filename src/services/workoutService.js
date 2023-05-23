@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const exerciseService = {
+const workoutService = {
     createWorkout: (workout) => {
 
         return axios.post('http://localhost:1234/workouts', workout)
@@ -24,4 +24,4 @@ const exerciseService = {
     }
 }
 
-export default exerciseService;
+export default workoutService;

@@ -1,0 +1,33 @@
+.profile-header {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    padding: 15px;
+    border-bottom: 2px solid teal;
+    overflow: hidden;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile-user {
+    padding: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-bw {
+    padding-left: 16px;
+    width: 50px;
+}
+
+.bw-result::after {
+    color: teal;
+}
+
+.bw-text {
+    display: flex;
+}
